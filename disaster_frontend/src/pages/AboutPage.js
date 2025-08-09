@@ -35,7 +35,7 @@ const AboutPage = ({ darkMode }) => {
   const milestones = [
     {
       year: "2022",
-      title: "DisasterWatch India Launched",
+      title: "JanSanket India Launched",
       description: "Started as a student project addressing disaster response gaps in India.",
       icon: "🇮🇳",
     },
@@ -73,7 +73,7 @@ const AboutPage = ({ darkMode }) => {
         <div className="text-center mb-5 animate-fade-in">
           <h1 className="display-4 fw-bold mb-4">Our Mission: Empowering India’s Resilience</h1>
           <p className="lead mb-4">
-            DisasterWatch India is dedicated to connecting communities, volunteers, and authorities to
+            JanSanket India is dedicated to connecting communities, volunteers, and authorities to
             save lives and speed recovery when disaster strikes across our diverse nation.
           </p>
           <div className="row justify-content-center">
@@ -113,7 +113,7 @@ const AboutPage = ({ darkMode }) => {
               <div className="card-body p-5">
                 <h3 className="mb-4">📖 Our Story</h3>
                 <p className="mb-3">
-                  DisasterWatch India began as a college project when Sarjan Shah and team noticed critical gaps in
+                  JanSanket India began as a college project when Sarjan Shah and team noticed critical gaps in
                   disaster communication during monsoon floods and cyclones. From Mumbai to Assam, the need to connect
                   affected people with volunteers and shelters was urgent.
                 </p>
@@ -223,7 +223,7 @@ const AboutPage = ({ darkMode }) => {
               <div className="col-lg-6 mb-4">
                 <h3 className="mb-4">🌍 Global Impact with Indian Roots</h3>
                 <p className="mb-3">
-                  Since launching in India, DisasterWatch has empowered communities across diverse regions — from
+                  Since launching in India, JanSanket has empowered communities across diverse regions — from
                   Himalayan foothills to coastal villages — to prepare, respond, and recover from natural disasters.
                 </p>
                 <div className="row">
@@ -281,7 +281,7 @@ const AboutPage = ({ darkMode }) => {
               <h3 className="mb-3">🚀 Join Our Mission</h3>
               <p className="lead mb-4">
                 Whether you’re a developer, emergency responder, community leader, or someone who simply wants to help,
-                there’s a place for you in the DisasterWatch India community.
+                there’s a place for you in the JanSanket India community.
               </p>
               <div className="d-flex flex-wrap justify-content-center gap-3">
                 <button className="btn btn-primary btn-lg btn-animated" onClick={() => navigate("/volunteer-application")}>🤝 Become a Volunteer</button>

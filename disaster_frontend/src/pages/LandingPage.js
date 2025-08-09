@@ -73,7 +73,7 @@ const LandingPage = ({ isAuthenticated }) => {
         <div className="container position-relative" style={{ zIndex: 2 }}>
           <div className="row align-items-center min-vh-100">
             <div className="col-lg-9 text-white mx-auto text-center">
-              <h1 className="display-2 fw-bold mb-1">Act Fast. Save Lives.</h1>
+              <h1 className="display-2 fw-bold mb-1">JanSanket</h1>
               <p className="lead mb-4 fs-4">
                 Real-time disaster reporting & volunteer coordination platform.
                 Connect communities, coordinate response, and save lives
@@ -159,7 +159,7 @@ const LandingPage = ({ isAuthenticated }) => {
       <section className="py-5 bg-dark text-light">
         <div className="container">
           <div className="text-center mb-5">
-            <h2 className="display-4 fw-bold mb-3">How DisasterWatch Works</h2>
+            <h2 className="display-4 fw-bold mb-3">How JanSanket Works</h2>
             <p className="lead">
               Simple, fast, and effective disaster response coordination
             </p>
@@ -261,7 +261,7 @@ const LandingPage = ({ isAuthenticated }) => {
           <div className="row">
             <div className="col-md-6">
               <h5 className="fw-bold mb-3" style={{ color: "#DC2626" }}>
-                🚨 DisasterWatch
+                🚨 JanSanket
               </h5>
               <p>Connecting communities in times of crisis.</p>
             </div>
@@ -305,7 +305,7 @@ const LandingPage = ({ isAuthenticated }) => {
           <hr className="my-4" />
           <div className="text-center">
             <p className="mb-0">
-              &copy; 2024 DisasterWatch. All rights reserved. Made with ❤️ for
+              &copy; 2024 JanSanket. All rights reserved. Made with ❤️ for
               safer communities.
             </p>
           </div>

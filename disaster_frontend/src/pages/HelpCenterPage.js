@@ -20,7 +20,7 @@ const HelpCenterPage = ({ darkMode }) => {
     {
       id: 1,
       category: "getting-started",
-      question: "How do I create an account on DisasterWatch?",
+      question: "How do I create an account on JanSanket?",
       answer:
         "To create an account, click the 'Sign Up' button on the homepage, fill in your details, and verify your email address. It's completely free to get started.",
     },
@@ -62,7 +62,7 @@ const HelpCenterPage = ({ darkMode }) => {
     {
       id: 7,
       category: "account",
-      question: "How much does DisasterWatch cost?",
+      question: "How much does JanSanket cost?",
       answer:
         "Basic features are free forever. Professional plans start at $29/month for organizations needing advanced features. Check our pricing page for details.",
     },
@@ -92,7 +92,7 @@ const HelpCenterPage = ({ darkMode }) => {
   const guides = [
     {
       title: "Quick Start Guide",
-      description: "Get up and running with DisasterWatch in 5 minutes",
+      description: "Get up and running with JanSanket in 5 minutes",
       icon: "⚡",
       steps: [
         "Create your free account",
@@ -140,12 +140,12 @@ const HelpCenterPage = ({ darkMode }) => {
         <div className="text-center mb-5 animate-fade-in">
           <h1 className="display-5 fw-bold mb-3">🆘 Help Center</h1>
           <p className="lead text-muted">
-            Find answers to common questions and get the help you need to use DisasterWatch effectively.
+            Find answers to common questions and get the help you need to use JanSanket effectively.
           </p>
         </div>
 
         {/* Search Bar */}
-        <div className="row justify-content-center mb-5">
+        <div className="row justify-content-center mb-3">
           <div className="col-lg-6">
             <div className="input-group input-group-lg animate-fade-in-up">
               <span className="input-group-text">🔍</span>
@@ -160,32 +160,7 @@ const HelpCenterPage = ({ darkMode }) => {
           </div>
         </div>
 
-        {/* Quick Guides */}
-        <div className="mb-5 animate-fade-in-up">
-          <h2 className="text-center mb-4">📖 Quick Guides</h2>
-          <div className="row">
-            {guides.map((guide, index) => (
-              <div key={index} className="col-lg-4 mb-4">
-                <div className="card card-hover h-100 border-0 shadow-lg">
-                  <div className="card-body p-4">
-                    <div className="text-center mb-3">
-                      <div className="display-4">{guide.icon}</div>
-                      <h5 className="fw-bold">{guide.title}</h5>
-                      <p className="text-muted">{guide.description}</p>
-                    </div>
-                    <ol className="list-group list-group-flush">
-                      {guide.steps.map((step, stepIndex) => (
-                        <li key={stepIndex} className="list-group-item border-0 px-0">
-                          <small>{step}</small>
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        
 
         {/* Categories */}
         <div className="mb-4 animate-slide-in-left">
@@ -203,10 +178,8 @@ const HelpCenterPage = ({ darkMode }) => {
         </div>
 
         {/* FAQ Section */}
-        <div className="row justify-content-center">
+        <div className="row justify-content-center mb-5">
           <div className="col-lg-8">
-            <h2 className="text-center mb-4">❓ Frequently Asked Questions</h2>
-
             {filteredFaqs.length === 0 ? (
               <div className="text-center py-5">
                 <div className="display-1 mb-3">🔍</div>
@@ -240,6 +213,30 @@ const HelpCenterPage = ({ darkMode }) => {
             )}
           </div>
         </div>
+        <div className="mb-5 animate-fade-in-up">
+          <div className="row">
+            {guides.map((guide, index) => (
+              <div key={index} className="col-lg-4 mb-4">
+                <div className="card card-hover h-100 border-0 shadow-lg">
+                  <div className="card-body p-4">
+                    <div className="text-center mb-3">
+                      <div className="display-4">{guide.icon}</div>
+                      <h5 className="fw-bold">{guide.title}</h5>
+                      <p className="text-muted">{guide.description}</p>
+                    </div>
+                    <ol className="list-group list-group-flush">
+                      {guide.steps.map((step, stepIndex) => (
+                        <li key={stepIndex} className="list-group-item border-0 px-0">
+                          <small>{step}</small>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
 
         {/* Contact Support */}
         <div className="text-center mt-5 animate-fade-in-up">
@@ -248,13 +245,12 @@ const HelpCenterPage = ({ darkMode }) => {
               <h3 className="mb-3">Still need help?</h3>
               <p className="lead mb-4">Can't find what you're looking for? Our support team is here to help 24/7.</p>
               <div className="d-flex flex-wrap justify-content-center gap-3">
-                <a href="mailto:support@disasterwatch.org" className="btn btn-primary btn-lg">
+                <a href="mailto:support@JanSanket.org" className="btn btn-primary btn-lg">
                   📧 Email Support
                 </a>
                 <a href="tel:+15551234567" className="btn btn-outline-primary btn-lg">
                   📞 Call Support
                 </a>
-                <button className="btn btn-success btn-lg">💬 Live Chat</button>
               </div>
             </div>
           </div>

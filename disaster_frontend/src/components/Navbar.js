@@ -28,7 +28,7 @@ const Navbar = ({ darkMode, toggleTheme, onLogout }) => {
     >
       <div className="container">
         <Link className="navbar-brand fw-bold fs-3" to="/dashboard" style={{ color: "#DC2626" }}>
-          🚨 DisasterWatch
+          🚨 JanSanket
         </Link>
 
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">

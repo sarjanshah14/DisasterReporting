@@ -102,7 +102,7 @@ const AuthPage = ({ darkMode, setIsAuthenticated, onLogin }) => {
                   style={{ background: "linear-gradient(135deg, #DC2626 0%, #2563EB 100%)", color: "white" }}
                 >
                   <div className="p-5 text-center">
-                    <h1 className="display-4 fw-bold mb-4 animate-slide-in-left">Welcome to DisasterWatch</h1>
+                    <h1 className="display-4 fw-bold mb-4 animate-slide-in-left">Welcome to JanSanket</h1>
                     <p className="lead mb-4 animate-slide-in-left">
                       Join thousands of heroes making a difference in emergency response and community safety.
                     </p>
@@ -141,7 +141,7 @@ const AuthPage = ({ darkMode, setIsAuthenticated, onLogin }) => {
                     </div>
 
                     <form onSubmit={handleSubmit} className="animate-fade-in">
-                      <h3 className="mb-4 text-center">{isLogin ? "🔐 Welcome Back!" : "🚀 Join DisasterWatch"}</h3>
+                      <h3 className="mb-4 text-center">{isLogin ? "🔐 Welcome Back!" : "🚀 Join JanSanket"}</h3>
 
                       <div className="mb-3">
                         <label htmlFor="username" className="form-label">

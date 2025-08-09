@@ -102,8 +102,8 @@ const VolunteersPage = ({ darkMode }) => {
       alert("This volunteer is currently offline and cannot be contacted.")
       return
     }
-    const message = `Hello ${volunteer.name}, I found your profile on DisasterWatch and would like to connect regarding emergency response coordination.`
-    window.location.href = `mailto:${volunteer.contact}?subject=DisasterWatch Contact Request&body=${encodeURIComponent(
+    const message = `Hello ${volunteer.name}, I found your profile on JanSanket and would like to connect regarding emergency response coordination.`
+    window.location.href = `mailto:${volunteer.contact}?subject=JanSanket Contact Request&body=${encodeURIComponent(
       message,
     )}`
   }

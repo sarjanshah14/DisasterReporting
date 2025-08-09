@@ -249,7 +249,7 @@ const handlePlanSelect = async (planId) => {
             <div className="card-body p-5">
               <h3 className="mb-3">🚀 Ready to Get Started?</h3>
               <p className="lead mb-4">
-                Join thousands of organizations already using DisasterWatch to save lives and coordinate emergency
+                Join thousands of organizations already using JanSanket to save lives and coordinate emergency
                 response.
               </p>
               <div className="d-flex flex-wrap justify-content-center gap-3">

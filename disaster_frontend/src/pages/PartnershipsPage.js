@@ -59,7 +59,7 @@ const PartnershipsPage = ({ darkMode }) => {
   const partnershipTypes = [
     {
       type: "Technology Integration",
-      description: "Integrate your systems with DisasterWatch APIs",
+      description: "Integrate your systems with JanSanket APIs",
       benefits: ["Real-time data sharing", "Custom integrations", "Technical support"],
       icon: "🔧",
     },
@@ -151,7 +151,7 @@ const PartnershipsPage = ({ darkMode }) => {
         <div className="text-center mb-5 animate-fade-in">
           <h1 className="display-5 fw-bold mb-3">🤝 Partnerships</h1>
           <p className="lead text-muted">
-            Join forces with DisasterWatch to create a more resilient world. Together, we can save more lives and build
+            Join forces with JanSanket to create a more resilient world. Together, we can save more lives and build
             stronger communities.
           </p>
         </div>
@@ -341,7 +341,7 @@ const PartnershipsPage = ({ darkMode }) => {
                       value={formData.description}
                       onChange={handleInputChange}
                       rows="4"
-                      placeholder="Describe your organization, your interest in partnering with DisasterWatch, and how you envision the partnership working..."
+                      placeholder="Describe your organization, your interest in partnering with JanSanket, and how you envision the partnership working..."
                     ></textarea>
                     {errors.description && <div className="invalid-feedback">{errors.description}</div>}
                   </div>
@@ -366,7 +366,7 @@ const PartnershipsPage = ({ darkMode }) => {
 
         {/* Benefits Section */}
         <div className="mb-5 animate-fade-in-up">
-          <h2 className="text-center mb-4">💡 Why Partner with DisasterWatch?</h2>
+          <h2 className="text-center mb-4">💡 Why Partner with JanSanket?</h2>
           <div className="row">
             <div className="col-lg-4 mb-4">
               <div className="card card-hover h-100 border-0 shadow text-center">
@@ -415,7 +415,7 @@ const PartnershipsPage = ({ darkMode }) => {
                 opportunities.
               </p>
               <div className="d-flex flex-wrap justify-content-center gap-3">
-                <a href="mailto:partnerships@disasterwatch.org" className="btn btn-primary btn-lg">
+                <a href="mailto:partnerships@JanSanket.org" className="btn btn-primary btn-lg">
                   📧 Email Partnerships Team
                 </a>
                 <a href="tel:+15551234567" className="btn btn-outline-primary btn-lg">

@@ -87,9 +87,9 @@ const ContactPage = ({ darkMode }) => {
     {
       icon: "📧",
       title: "Email Support",
-      info: "support@disasterwatch.in",
+      info: "support@JanSanket.in",
       description: "General inquiries and support",
-      action: "mailto:support@disasterwatch.in",
+      action: "mailto:support@JanSanket.in",
     },
     {
       icon: "🚨",
@@ -101,16 +101,16 @@ const ContactPage = ({ darkMode }) => {
     {
       icon: "💼",
       title: "Business Inquiries",
-      info: "partnerships@disasterwatch.in",
+      info: "partnerships@JanSanket.in",
       description: "Partnerships and collaborations",
-      action: "mailto:partnerships@disasterwatch.in",
+      action: "mailto:partnerships@JanSanket.in",
     },
     {
       icon: "📱",
       title: "Technical Support",
-      info: "tech@disasterwatch.in",
+      info: "tech@JanSanket.in",
       description: "Platform issues and bugs",
-      action: "mailto:tech@disasterwatch.in",
+      action: "mailto:tech@JanSanket.in",
     },
   ]
 
@@ -142,9 +142,9 @@ const ContactPage = ({ darkMode }) => {
         "Emergency reports are forwarded to relevant Indian authorities and local volunteers within minutes. Our platform monitors emergencies 24/7.",
     },
     {
-      question: "Is DisasterWatch free to use?",
+      question: "Is JanSanket free to use?",
       answer:
-        "Yes, DisasterWatch is completely free for individuals and communities across India. Our goal is to make emergency help accessible to all.",
+        "Yes, JanSanket is completely free for individuals and communities across India. Our goal is to make emergency help accessible to all.",
     },
     {
       question: "How do you verify shelter and volunteer information?",
@@ -152,9 +152,9 @@ const ContactPage = ({ darkMode }) => {
         "We work closely with local authorities and NGOs. Verification includes background checks, community feedback, and on-site visits where possible.",
     },
     {
-      question: "Can I use DisasterWatch outside India?",
+      question: "Can I use JanSanket outside India?",
       answer:
-        "Currently, DisasterWatch focuses on India but we have plans to expand regionally. For now, our support is tailored to Indian disaster response systems.",
+        "Currently, JanSanket focuses on India but we have plans to expand regionally. For now, our support is tailored to Indian disaster response systems.",
     },
   ]
 
