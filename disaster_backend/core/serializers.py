@@ -42,19 +42,20 @@ class ShelterImageSerializer(serializers.ModelSerializer):
         model = ShelterImage
         fields = ['id', 'image']
 
-# Updated ShelterSerializer to include images
-class ShelterSerializer(serializers.ModelSerializer):
-    images = ShelterImageSerializer(many=True, read_only=True)  # Add this line
-
-    class Meta:
-        model = Shelter
-        fields = '__all__'  # includes all Shelter fields + images
-        
 
 class PredictedValuesSerializer(serializers.ModelSerializer):
     class Meta:
         model = PredictedValues
         fields = ['food_needed', 'water_required', 'Volunteers_required', 'medical_kits']
+
+
+class ShelterSerializer(serializers.ModelSerializer):
+    images = ShelterImageSerializer(many=True, read_only=True)
+    predictions = PredictedValuesSerializer(read_only=True)
+
+    class Meta:
+        model = Shelter
+        fields = '__all__'  # includes all Shelter fields + images + predictions
 
 
 class VolunteerSerializer(serializers.ModelSerializer):

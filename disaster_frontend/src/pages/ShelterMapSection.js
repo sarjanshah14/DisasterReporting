@@ -158,10 +158,22 @@ const ShelterMapSection = () => {
                         <div style={{ fontSize: "0.85rem", marginBottom: "6px", color: "#444" }}>
                           📍 <strong>Location:</strong> {shelter.location || "Unknown"}
                         </div>
-
+                        
                         {/* Status / Description */}
-                        <div style={{ fontSize: "0.85rem", color: "#555" }}>
+                        <div style={{ fontSize: "0.85rem", color: "#444" }}>
                           📋 <strong>Status:</strong> {shelter.description || "No details"}
+                        </div>
+                        <div style={{ fontSize: "0.85rem", marginBottom: "6px", color: "#444" }}>
+                          🍽 <strong>Food Needed:</strong> { shelter.predictions?.food_needed ?? 0 } Meals
+                        </div>
+                        <div style={{ fontSize: "0.85rem", marginBottom: "6px", color: "#444" }}>
+                          💧 <strong>Water Required:</strong> {shelter.predictions?.water_required ?? 0} L
+                        </div>
+                        <div style={{ fontSize: "0.85rem", marginBottom: "6px", color: "#444" }}>
+                          🩺 <strong>Medical Kits:</strong> {shelter.predictions?.medical_kits ?? 0} Kits
+                        </div>
+                        <div style={{ fontSize: "0.85rem", marginBottom: "6px", color: "#444" }}>
+                          🙋 <strong>Volunteers Required:</strong> {shelter.predictions?.Volunteers_required ?? 0} Volunteers
                         </div>
                       </div>
                     </Popup>

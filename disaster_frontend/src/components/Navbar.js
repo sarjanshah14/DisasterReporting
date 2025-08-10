@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import NotificationBell from "../pages/NotificationBell"
 
 const Navbar = ({ darkMode, toggleTheme, onLogout }) => {
   const [scrolled, setScrolled] = useState(false)
@@ -75,6 +76,7 @@ const Navbar = ({ darkMode, toggleTheme, onLogout }) => {
           </ul>
 
           <div className="d-flex align-items-center">
+            <NotificationBell/>
             <button className="btn btn-outline-secondary me-2" onClick={toggleTheme} title="Toggle Theme">
               {darkMode ? "☀️" : "🌙"}
             </button>

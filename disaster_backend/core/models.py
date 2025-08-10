@@ -91,7 +91,7 @@ class ContactMessage(models.Model):
         return f"{self.name} - {self.subject} ({self.urgency})"
 
 class PredictedValues(models.Model):
-    name = models.ForeignKey(Shelter,on_delete=models.CASCADE)
+    name = models.OneToOneField(Shelter, related_name='predictions', on_delete=models.CASCADE)
     food_needed = models.IntegerField()
     water_required = models.IntegerField()
     Volunteers_required = models.IntegerField()

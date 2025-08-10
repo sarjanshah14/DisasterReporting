@@ -31,6 +31,8 @@ const Dashboard = ({ darkMode }) => {
       })
   }, [])
 
+  
+
   const getSeverityBadge = (severity) => {
     switch (severity) {
       case "Critical":
@@ -47,6 +49,8 @@ const Dashboard = ({ darkMode }) => {
   }
 
   return (
+    <>
+      
     <div className={`dashboard-page py-4 ${darkMode ? "bg-dark text-light" : "bg-light"}`}>
       <div className="container">
         {/* Header */}
@@ -198,6 +202,7 @@ const Dashboard = ({ darkMode }) => {
 
       </div>
     </div>
+    </>
   )
 }
 
