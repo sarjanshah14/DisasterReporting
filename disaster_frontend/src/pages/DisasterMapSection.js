@@ -18,6 +18,12 @@ const getDisasterIcon = (type) => {
     earthquake: "marker-earthquake.png",
     cyclone: "marker-cyclone.png",
     landslide: "marker-landslide.png",
+    drought: 'marker-drought.png',
+    "storm/hurricane": 'marker-stormy.png',
+    tornado: 'marker-tornado.png',
+    tsunami: 'marker-tsunami.png',
+    "volcanic eruption": 'marker-volcanic_eruption.png',
+    other: 'marker-others.png',
   };
 
   const iconFilename = iconMap[type.toLowerCase()] || "marker-flood.png";
