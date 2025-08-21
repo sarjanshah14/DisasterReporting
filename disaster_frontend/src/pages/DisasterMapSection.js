@@ -96,7 +96,7 @@ const DisasterMapSection = () => {
   const zoomLevel = userLocation ? 6 : 6; // always start at 6 to avoid jump on first render
 
   return (
-    <div className="col-lg-12" style={{ height: "650px", marginBottom: "125px" }}>
+    <div className="col-lg-12" style={{ height: "400px", marginBottom: "100px" }}>
       <div className="card border-0 shadow-lg animate-slide-in-right">
         <div className="card-body">
           <div className="rounded-3 mb-3">
@@ -104,7 +104,7 @@ const DisasterMapSection = () => {
               center={center}
               zoom={zoomLevel}
               scrollWheelZoom={true}
-              style={{ height: "650px", width: "100%", borderRadius: "0.5rem" }}
+              style={{ height: "400px", width: "100%", borderRadius: "0.5rem" }}
             >
               <TileLayer
                 attribution="&copy; OpenStreetMap contributors"

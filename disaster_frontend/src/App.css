@@ -247,3 +247,67 @@
   color: white;
   transform: translateY(-2px);
 }
+.disaster-carousel {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+.disaster-track {
+  display: flex;
+  flex-wrap: nowrap;
+  animation: scroll 25s linear infinite;
+}
+
+.disaster-card {
+  flex: 0 0 auto;
+  width: 280px;
+  margin: 10px;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.disaster-description {
+  font-size: 0.9rem;
+  color: #444;
+  line-height: 1.4;
+}
+/* Floating Report Button */
+.btn-report-fab {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 9999;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #ff4e50, #f83600);
+  color: white !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+}
+
+/* Hover Glow */
+.btn-report-fab:hover {
+  transform: scale(1.1) translateY(-3px);
+  box-shadow: 0 12px 28px rgba(255, 0, 0, 0.4);
+  background: linear-gradient(135deg, #ff1e56, #ff4e50);
+}
+
+/* Dark Mode compatibility */
+.bg-dark .btn-report-fab {
+  background: linear-gradient(135deg, #ff5e62, #ff9966);
+}
+

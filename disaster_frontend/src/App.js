@@ -22,6 +22,7 @@ import PricingPage from "./pages/PricingPage"
 import HelpCenterPage from "./pages/HelpCenterPage"
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage"
 import PartnershipsPage from "./pages/PartnershipsPage"
+import SuccessPage from "./pages/SuccessPage"
 
 function App() {
   const [darkMode, setDarkMode] = useState(false)
@@ -154,6 +155,26 @@ function App() {
               <>
                 <Navbar darkMode={darkMode} toggleTheme={toggleTheme} onLogout={handleLogout} />
                 <ContactPage darkMode={darkMode} />
+                <Footer darkMode={darkMode} />
+              </>
+            }
+          />
+          <Route
+            path="/contact"
+            element={
+              <>
+                <Navbar darkMode={darkMode} toggleTheme={toggleTheme} onLogout={handleLogout} />
+                <ContactPage darkMode={darkMode} />
+                <Footer darkMode={darkMode} />
+              </>
+            }
+          />
+          <Route
+            path="/success"
+            element={
+              <>
+                <Navbar darkMode={darkMode} toggleTheme={toggleTheme} onLogout={handleLogout} />
+                <SuccessPage darkMode={darkMode} />
                 <Footer darkMode={darkMode} />
               </>
             }

@@ -1,16 +1,17 @@
 /* eslint-disable no-unused-vars */
-"use client"
+import { useState } from "react";
+import { loadStripe } from '@stripe/stripe-js';
+import axios from 'axios';
+import { Spinner, Alert } from 'react-bootstrap';
 
-import { useState } from "react"
-import { Link } from "react-router-dom"
-import { loadStripe } from '@stripe/stripe-js'
-import axios from 'axios'
-const stripePromise = loadStripe('pk_test_51Rtd171yRBtzWAxgUOmQdUViaHo1srTcLlXy54GbArsUVkXkF49bJWsiJFHKqWy7dADyhttYNACtL7c4ZUSxA5Z300ayMcDTeC')
-
+// Initialize Stripe
+const stripePromise = loadStripe('pk_test_51Rtd171yRBtzWAxgUOmQdUViaHo1srTcLlXy54GbArsUVkXkF49bJWsiJFHKqWy7dADyhttYNACtL7c4ZUSxA5Z300ayMcDTeC');
 
 const PricingPage = ({ darkMode }) => {
-  const [billingCycle, setBillingCycle] = useState("monthly")
-  const [selectedPlan, setSelectedPlan] = useState(null)
+  const [billingCycle, setBillingCycle] = useState("monthly");
+  const [selectedPlan, setSelectedPlan] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const plans = [
     {
@@ -104,46 +105,51 @@ const PricingPage = ({ darkMode }) => {
     }
   ];
 
-const handlePlanSelect = async (planId) => {
-  setSelectedPlan(planId)
+  const handlePlanSelect = async (plan) => {
+    // For free plan, just redirect to signup
+    
 
-  try {
-    const response = await axios.post('http://127.0.0.1:8000/api/create_checkout_session/', {
-      planId: planId
-    })
+    setSelectedPlan(plan.id);
+    setLoading(true);
+    setError(null);
 
-    const data = response.data
-    console.log(data)
+    try {
+      const response = await axios.post('http://localhost:8000/api/create-checkout-session/', {
+        plan_id: plan.id,
+        billing_period: billingCycle,
+        customer_email: "customer@example.com" // Replace with actual user email
+      });
 
-    if (data.error) {
-      alert('Error: ' + data.error)
-      return
+      const { sessionId } = response.data;
+      const stripe = await stripePromise;
+
+      const { error } = await stripe.redirectToCheckout({
+        sessionId: sessionId
+      });
+
+      if (error) {
+        throw error;
+      }
+    } catch (err) {
+      setError(err.response?.data?.error || err.message || 'Failed to initiate payment');
+      console.error('Checkout error:', err);
+    } finally {
+      setLoading(false);
     }
-
-    const stripe = await stripePromise
-    const { error } = await stripe.redirectToCheckout({ sessionId: data.id })
-    if (error) {
-      alert(error.message)
-    }
-  } catch (err) {
-    alert('Payment failed: ' + err.message)
-    console.log(err)
-  }
-}
-
+  };
 
   const calculateSavings = (monthly, yearly) => {
-    if (monthly === 0) return 0
-    const monthlyCost = monthly * 12
-    const savings = monthlyCost - yearly
-    return Math.round((savings / monthlyCost) * 100)
-  }
+    if (monthly === 0 || monthly === null) return 0;
+    const monthlyCost = monthly * 12;
+    const savings = monthlyCost - yearly;
+    return Math.round((savings / monthlyCost) * 100);
+  };
 
   return (
     <div className={`pricing-page py-4 ${darkMode ? "bg-dark text-light" : "bg-light"}`}>
       <div className="container">
         {/* Header */}
-        <div className="text-center mb-5 animate-fade-in">
+        <div className="text-center mb-5">
           <h1 className="display-4 fw-bold mb-3">💰 Choose Your Plan</h1>
           <p className="lead text-muted mb-4">
             Flexible pricing for individuals, organizations, and enterprises. Start free and scale as you grow.
@@ -171,13 +177,28 @@ const handlePlanSelect = async (planId) => {
           </div>
         </div>
 
+        {/* Error Message */}
+        {error && (
+          <div className="row mb-4">
+            <div className="col-12">
+              <Alert variant="danger" className="text-center">
+                {error}
+              </Alert>
+            </div>
+          </div>
+        )}
+
         {/* Pricing Cards */}
         <div className="row justify-content-center mb-5">
           {plans.map((plan, index) => (
             <div key={plan.id} className="col-lg-4 col-md-6 mb-4">
               <div
-                className={`card card-hover h-100 border-0 shadow-lg position-relative animate-fade-in-up ${plan.popular ? "border-primary" : ""}`}
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className={`card h-100 border-0 shadow position-relative ${plan.popular ? "border-primary" : ""}`}
+                style={{
+                  transform: plan.popular ? 'scale(1.05)' : 'scale(1)',
+                  transition: 'transform 0.3s ease',
+                  zIndex: plan.popular ? 1 : 0
+                }}
               >
                 {plan.popular && (
                   <div className="position-absolute top-0 start-50 translate-middle">
@@ -188,8 +209,10 @@ const handlePlanSelect = async (planId) => {
                 <div className="card-body p-4 text-center">
                   <h3 className="fw-bold mb-3">{plan.name}</h3>
                   <div className="mb-3">
-                    <span className="display-4 fw-bold text-primary">₹{plan.price[billingCycle]}</span>
-                    {plan.price.monthly > 0 && (
+                    <span className="display-4 fw-bold text-primary">
+                      {plan.price[billingCycle] === null ? 'Custom' : `₹${plan.price[billingCycle]}`}
+                    </span>
+                    {plan.price[billingCycle] !== null && plan.price[billingCycle] > 0 && (
                       <span className="text-muted">/{billingCycle === "monthly" ? "month" : "year"}</span>
                     )}
                   </div>
@@ -205,10 +228,18 @@ const handlePlanSelect = async (planId) => {
                   <p className="text-muted mb-4">{plan.description}</p>
 
                   <button
-                    className={`btn ${plan.buttonClass} btn-lg w-100 mb-4 btn-animated`}
-                    onClick={() => handlePlanSelect(plan.id)}
+                    className={`btn ${plan.buttonClass} btn-lg w-100 mb-4`}
+                    onClick={() => handlePlanSelect(plan)}
+                    disabled={loading && selectedPlan === plan.id}
                   >
-                    {plan.buttonText}
+                    {loading && selectedPlan === plan.id ? (
+                      <>
+                        <Spinner animation="border" size="sm" className="me-2" />
+                        Processing...
+                      </>
+                    ) : (
+                      plan.buttonText
+                    )}
                   </button>
 
                   <div className="text-start">
@@ -241,35 +272,9 @@ const handlePlanSelect = async (planId) => {
             </div>
           ))}
         </div>
-
-
-
-        {/* Call to Action */}
-        <div className="text-center animate-fade-in-up">
-          <div className="card border-0 shadow-lg">
-            <div className="card-body p-5">
-              <h3 className="mb-3">🚀 Ready to Get Started?</h3>
-              <p className="lead mb-4">
-                Join thousands of organizations already using JanSanket to save lives and coordinate emergency
-                response.
-              </p>
-              <div className="d-flex flex-wrap justify-content-center gap-3">
-                <button className="btn btn-primary btn-lg btn-animated" onClick={() => handlePlanSelect("free")}>
-                  Start Free Trial
-                </button>
-                <Link to="/contact" className="btn btn-outline-primary btn-lg btn-animated">
-                  Contact Sales
-                </Link>
-                <Link to="/auth" className="btn btn-success btn-lg btn-animated">
-                  Sign Up Free
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PricingPage
+export default PricingPage;

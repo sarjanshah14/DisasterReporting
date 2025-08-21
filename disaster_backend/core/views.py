@@ -16,6 +16,9 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json,os
+import logging
+from django.views.decorators.http import require_POST, require_GET
+
 
 
 stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
@@ -201,26 +204,76 @@ def predict_resources(request):
 
     return JsonResponse({'predictions': results})
 
-price_lookup = {
-    'free':'price_1Rtphq1yRBtzWAxgFFrCCxI2',
-    'verified-org': 'price_1RtoTB1yRBtzWAxgXWH5GlY1',
-    'shelter-promo': 'price_1RtoUE1yRBtzWAxgAQ6pDfeq',
-    'analytics': 'price_1RtoUk1yRBtzWAxgekYuOdgM',
-    'enterprise': 'price_1RtoVB1yRBtzWAxghL3PHL9R',
-}
+# price_lookup = {
+#     'free':'price_1Rtphq1yRBtzWAxgFFrCCxI2',
+#     'verified-org': 'price_1RtoTB1yRBtzWAxgXWH5GlY1',
+#     'shelter-promo': 'price_1RtoUE1yRBtzWAxgAQ6pDfeq',
+#     'analytics': 'price_1RtoUk1yRBtzWAxgekYuOdgM',
+#     'enterprise': 'price_1RtoVB1yRBtzWAxghL3PHL9R',
+# }
+
+
+# Set up logging
+logger = logging.getLogger(__name__)
+
+# Initialize Stripe
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
 @csrf_exempt
 def create_checkout_session(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
-        print('hi',data)
-        plan_id = data.get('planId')
-
-        price_id = price_lookup.get(plan_id)
-
-        if not price_id:
-            return JsonResponse({'error': 'Invalid plan ID'}, status=400)
-
         try:
+            # Parse JSON data from request body
+            data = json.loads(request.body.decode('utf-8'))
+            plan_id = data.get('plan_id')
+            billing_period = data.get('billing_period')
+            customer_email = data.get('customer_email')
+            
+            print(f"Received request: plan_id={plan_id}, billing_period={billing_period}, email={customer_email}")
+            
+            # Validate required parameters
+            if not plan_id or not billing_period:
+                return JsonResponse(
+                    {'error': 'Missing required parameters: plan_id and billing_period'}, 
+                    status=400
+                )
+            
+            # Define your plans and prices
+            plans = {
+                'free': {
+                    'monthly': 'price_1Rtphq1yRBtzWAxgFFrCCxI2',
+                    'yearly': 'price_1RyehM1yRBtzWAxgUMQhEdQE'
+                },
+                'shelter-promo': {
+                    'monthly': 'price_1RtoUE1yRBtzWAxgAQ6pDfeq',
+                    'yearly': 'price_1Ryejd1yRBtzWAxgWBHqxV9G'
+                },
+                'analytics': {
+                    'monthly': 'price_1RtoUk1yRBtzWAxgekYuOdgM',
+                    'yearly': 'price_1RyejB1yRBtzWAxgGfjGX4V4'
+                },
+                'enterprise': {
+                    'monthly': 'price_1RtoVB1yRBtzWAxghL3PHL9R',
+                    'yearly': 'price_1RtoVB1yRBtzWAxghL3PHL9R'
+                },
+                'verified-org': {
+                    'monthly': 'price_1RtoTB1yRBtzWAxgXWH5GlY1',
+                    'yearly': 'price_1RyeiP1yRBtzWAxgIh4bMtLL'
+                }
+            }
+            
+            # Check if plan exists
+            if plan_id not in plans:
+                return JsonResponse({'error': 'Invalid plan ID'}, status=400)
+                
+            # Check if billing period exists for this plan
+            if billing_period not in plans[plan_id]:
+                return JsonResponse({'error': 'Invalid billing period for this plan'}, status=400)
+            
+            # Get the price ID
+            price_id = plans[plan_id][billing_period]
+            
+            # Create checkout session
             session = stripe.checkout.Session.create(
                 payment_method_types=['card'],
                 line_items=[{
@@ -228,10 +281,58 @@ def create_checkout_session(request):
                     'quantity': 1,
                 }],
                 mode='subscription',
-                success_url='http://localhost:3000/pricing',
-                cancel_url='http://localhost:3000/dashboard',
+                success_url='http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}',
+                cancel_url='http://localhost:3000/pricing',
+                customer_email=customer_email,
+                metadata={
+                    'plan_id': plan_id,
+                    'billing_period': billing_period
+                }
             )
-            return JsonResponse({'id': session.id})
+            
+            print(f"Created Stripe session: {session.id}")
+            return JsonResponse({'sessionId': session.id})
+            
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON in request body'}, status=400)
         except Exception as e:
-            return JsonResponse({'error': str(e)}, status=400)
-    return JsonResponse({'error': 'Invalid request'}, status=400)
+            print(f"Error creating checkout session: {str(e)}")
+            return JsonResponse({'error': str(e)}, status=500)
+    
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+@csrf_exempt
+def verify_payment(request):
+    if request.method == 'GET':
+        session_id = request.GET.get('session_id')
+        
+        if not session_id:
+            return JsonResponse({'error': 'Missing session_id parameter'}, status=400)
+        
+        try:
+            session = stripe.checkout.Session.retrieve(
+                session_id,
+                expand=['subscription']
+            )
+            
+            response_data = {
+                'status': 'success',
+                'payment_id': session.id,
+                'payment_status': session.payment_status,
+                'amount': session.amount_total / 100 if session.amount_total else 0,
+                'currency': session.currency.upper() if session.currency else 'USD',
+                'plan_id': session.metadata.get('plan_id', ''),
+                'billing_period': session.metadata.get('billing_period', ''),
+            }
+            
+            if session.subscription and hasattr(session.subscription, 'current_period_end'):
+                response_data['next_billing_date'] = session.subscription.current_period_end
+            
+            return JsonResponse(response_data)
+            
+        except stripe.error.InvalidRequestError:
+            return JsonResponse({'error': 'Invalid session ID'}, status=400)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+    
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
