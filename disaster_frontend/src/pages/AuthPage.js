@@ -29,29 +29,52 @@ const AuthPage = ({ darkMode, setIsAuthenticated, onLogin }) => {
   }
 
   const validateForm = () => {
-    const newErrors = {}
+  const newErrors = {}
 
-    if (!formData.username.trim()) newErrors.username = "Username is required"
+  // Username validation
+  if (!formData.username.trim()) {
+    newErrors.username = "Username is required"
+  } else if (formData.username.length < 6) {
+    newErrors.username = "Username must be at least 6 characters"
+  } else if (/\s/.test(formData.username)) {
+    newErrors.username = "Username cannot contain spaces"
+  }
 
-    if (!isLogin && !formData.email.trim()) {
+  // Email validation (only for signup)
+  if (!isLogin) {
+    if (!formData.email.trim()) {
       newErrors.email = "Email is required"
-    } else if (!isLogin && !/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Email is invalid"
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Email format is invalid"
     }
+  }
 
-    if (!formData.password) {
-      newErrors.password = "Password is required"
-    } else if (formData.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters"
-    }
+  // Password validation
+  if (!formData.password) {
+    newErrors.password = "Password is required"
+  } else if (formData.password.length < 6) {
+    newErrors.password = "Password must be at least 6 characters"
+  } else if (!/(?=.*[A-Z])/.test(formData.password)) {
+    newErrors.password = "Password must contain at least one uppercase letter"
+  } else if (!/(?=.*\d)/.test(formData.password)) {
+    newErrors.password = "Password must contain at least one number"
+  } else if (!/(?=.*[@$!%*?&])/.test(formData.password)) {
+    newErrors.password = "Password must contain at least one special character (@$!%*?&)"
+  }
 
-    if (!isLogin && formData.password !== formData.confirmPassword) {
+  // Confirm Password validation (only for signup)
+  if (!isLogin) {
+    if (!formData.confirmPassword) {
+      newErrors.confirmPassword = "Confirm Password is required"
+    } else if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = "Passwords do not match"
     }
-
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
   }
+
+  setErrors(newErrors)
+  return Object.keys(newErrors).length === 0
+}
+
 
   const handleSubmit = async (e) => {
     e.preventDefault()
