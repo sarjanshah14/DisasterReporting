@@ -6,6 +6,7 @@ const Footer = ({ darkMode }) => {
       <div className="container">
         <hr className="my-4" />
         <div className="row">
+          {/* Brand + About */}
           <div className="col-lg-4 mb-4">
             <h5 className="fw-bold" style={{ color: "#DC2626" }}>
               🚨 JanSanket
@@ -15,21 +16,42 @@ const Footer = ({ darkMode }) => {
               and recover faster.
             </p>
             <div className="d-flex">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="social-icon me-2">
-                📘
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="me-3 text-decoration-none text-reset"
+              >
+                <i className="bi bi-facebook fs-4"></i>
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="social-icon me-2">
-                🐦
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="me-3 text-decoration-none text-reset"
+              >
+                <i className="bi bi-twitter fs-4"></i>
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-icon me-2">
-                📷
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="me-3 text-decoration-none text-reset"
+              >
+                <i className="bi bi-instagram fs-4"></i>
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-icon">
-                💼
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-decoration-none text-reset"
+              >
+                <i className="bi bi-linkedin fs-4"></i>
               </a>
             </div>
           </div>
 
+          {/* Quick Links */}
           <div className="col-lg-2 col-md-6 mb-4">
             <h6 className="fw-bold mb-3">Quick Links</h6>
             <ul className="list-unstyled">
@@ -61,6 +83,7 @@ const Footer = ({ darkMode }) => {
             </ul>
           </div>
 
+          {/* Support */}
           <div className="col-lg-2 col-md-6 mb-4">
             <h6 className="fw-bold mb-3">Support</h6>
             <ul className="list-unstyled">
@@ -87,12 +110,13 @@ const Footer = ({ darkMode }) => {
             </ul>
           </div>
 
+          {/* Contact Info */}
           <div className="col-lg-4 mb-4">
             <h6 className="fw-bold mb-3">Contact Information</h6>
-            <p className="mb-2">📧 support@JanSanketindia.in</p>
+            <p className="mb-2">📧 support@jansanket.in</p>
             <p className="mb-2">📞 Toll-Free: 1800-123-4357 (HELP)</p>
             <p className="mb-2">📱 National Disaster Helpline: 1078</p>
-            <p className="mb-2">📍 NIDM Campus, IIPA Estate, New Delhi - 110002</p>
+            <p className="mb-2">📍 JanSanket HQ, Near Riverfront, Ashram Road, Ahmedabad - 380009</p>
             <p className="mb-0">🕒 24x7 Emergency Response</p>
           </div>
         </div>
