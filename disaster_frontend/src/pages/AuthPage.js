@@ -3,6 +3,7 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import axios from 'axios'
 
+
 const AuthPage = ({ darkMode, setIsAuthenticated, onLogin }) => {
   const [isLogin, setIsLogin] = useState(true)
   const [formData, setFormData] = useState({
@@ -12,7 +13,10 @@ const AuthPage = ({ darkMode, setIsAuthenticated, onLogin }) => {
     confirmPassword: "",
   })
   const [errors, setErrors] = useState({})
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const navigate = useNavigate()
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -28,52 +32,54 @@ const AuthPage = ({ darkMode, setIsAuthenticated, onLogin }) => {
     }
   }
 
+
   const validateForm = () => {
-  const newErrors = {}
+    const newErrors = {}
 
-  // Username validation
-  if (!formData.username.trim()) {
-    newErrors.username = "Username is required"
-  } else if (formData.username.length < 6) {
-    newErrors.username = "Username must be at least 6 characters"
-  } else if (/\s/.test(formData.username)) {
-    newErrors.username = "Username cannot contain spaces"
-  }
-
-  // Email validation (only for signup)
-  if (!isLogin) {
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required"
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Email format is invalid"
+    // Username validation
+    if (!formData.username.trim()) {
+      newErrors.username = "Username is required"
+    } else if (formData.username.length < 6) {
+      newErrors.username = "Username must be at least 6 characters"
+    } else if (/\s/.test(formData.username)) {
+      newErrors.username = "Username cannot contain spaces"
     }
-  }
 
-  // Password validation
-  if (!formData.password) {
-    newErrors.password = "Password is required"
-  } else if (formData.password.length < 6) {
-    newErrors.password = "Password must be at least 6 characters"
-  } else if (!/(?=.*[A-Z])/.test(formData.password)) {
-    newErrors.password = "Password must contain at least one uppercase letter"
-  } else if (!/(?=.*\d)/.test(formData.password)) {
-    newErrors.password = "Password must contain at least one number"
-  } else if (!/(?=.*[@$!%*?&])/.test(formData.password)) {
-    newErrors.password = "Password must contain at least one special character (@$!%*?&)"
-  }
-
-  // Confirm Password validation (only for signup)
-  if (!isLogin) {
-    if (!formData.confirmPassword) {
-      newErrors.confirmPassword = "Confirm Password is required"
-    } else if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match"
+    // Email validation (only for signup)
+    if (!isLogin) {
+      if (!formData.email.trim()) {
+        newErrors.email = "Email is required"
+      } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+        newErrors.email = "Email format is invalid"
+      }
     }
+
+    // Password validation
+    if (!formData.password) {
+      newErrors.password = "Password is required"
+    } else if (formData.password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters"
+    } else if (!/(?=.*[A-Z])/.test(formData.password)) {
+      newErrors.password = "Password must contain at least one uppercase letter"
+    } else if (!/(?=.*\d)/.test(formData.password)) {
+      newErrors.password = "Password must contain at least one number"
+    } else if (!/(?=.*[@$!%*?&])/.test(formData.password)) {
+      newErrors.password = "Password must contain at least one special character (@$!%*?&)"
+    }
+
+    // Confirm Password validation (only for signup)
+    if (!isLogin) {
+      if (!formData.confirmPassword) {
+        newErrors.confirmPassword = "Confirm Password is required"
+      } else if (formData.password !== formData.confirmPassword) {
+        newErrors.confirmPassword = "Passwords do not match"
+      }
+    }
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
   }
 
-  setErrors(newErrors)
-  return Object.keys(newErrors).length === 0
-}
 
 
   const handleSubmit = async (e) => {
@@ -109,10 +115,12 @@ const AuthPage = ({ darkMode, setIsAuthenticated, onLogin }) => {
     }
   }
 
+
   const handleForgotPassword = () => {
     const email = prompt("Enter your email address:")
     if (email) alert(`Password reset link sent to ${email}`)
   }
+
 
   return (
     <div className={`min-vh-100 d-flex align-items-center ${darkMode ? "bg-dark" : "bg-light"}`}>
@@ -121,6 +129,7 @@ const AuthPage = ({ darkMode, setIsAuthenticated, onLogin }) => {
           <div className="col-lg-10">
             <div className="card shadow-lg border-0 rounded-4 overflow-hidden animate-fade-in">
               <div className="row g-0">
+                {/* Left Section */}
                 <div
                   className="col-lg-6 d-flex align-items-center"
                   style={{ background: "linear-gradient(135deg, #DC2626 0%, #2563EB 100%)", color: "white" }}
@@ -147,6 +156,7 @@ const AuthPage = ({ darkMode, setIsAuthenticated, onLogin }) => {
                   </div>
                 </div>
 
+                {/* Right Section */}
                 <div className={`col-lg-6 ${darkMode ? "bg-dark text-light" : "bg-white"}`}>
                   <div className="p-5">
                     <div className="d-flex mb-4">
@@ -167,6 +177,7 @@ const AuthPage = ({ darkMode, setIsAuthenticated, onLogin }) => {
                     <form onSubmit={handleSubmit} className="animate-fade-in">
                       <h3 className="mb-4 text-center">{isLogin ? "🔐 Welcome Back!" : "🚀 Join JanSanket"}</h3>
 
+                      {/* Username */}
                       <div className="mb-3">
                         <label htmlFor="username" className="form-label">
                           Username {isLogin ? "or Email" : ""}
@@ -183,6 +194,7 @@ const AuthPage = ({ darkMode, setIsAuthenticated, onLogin }) => {
                         {errors.username && <div className="invalid-feedback">{errors.username}</div>}
                       </div>
 
+                      {/* Email (Signup only) */}
                       {!isLogin && (
                         <div className="mb-3">
                           <label htmlFor="email" className="form-label">Email</label>
@@ -199,40 +211,72 @@ const AuthPage = ({ darkMode, setIsAuthenticated, onLogin }) => {
                         </div>
                       )}
 
-                      <div className="mb-3">
+                      {/* Password */}
+                      <div className="mb-3 position-relative">
                         <label htmlFor="password" className="form-label">Password</label>
-                        <input
-                          type="password"
-                          className={`form-control ${errors.password ? "is-invalid" : ""}`}
-                          id="password"
-                          name="password"
-                          value={formData.password}
-                          onChange={handleInputChange}
-                          placeholder="Enter your password"
-                        />
-                        {errors.password && <div className="invalid-feedback">{errors.password}</div>}
+                        <div className="input-group">
+                          <input
+                            type={showPassword ? "text" : "password"}
+                            className={`form-control ${errors.password ? "is-invalid" : ""}`}
+                            id="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleInputChange}
+                            placeholder="Enter your password"
+                          />
+                          <button
+                            type="button"
+                            className="btn btn-outline-secondary"
+                            onClick={() => setShowPassword(!showPassword)}
+                          >
+                            {showPassword ? "🙈" : "👁️"}
+                          </button>
+                          {errors.password && <div className="invalid-feedback d-block">{errors.password}</div>}
+                        </div>
+
+                        {/* Show rules only on Signup */}
+                        {!isLogin && (
+                          <ul className="small text-muted mt-2 mb-0">
+                            <li>At least 6 characters</li>
+                            <li>At least one uppercase letter</li>
+                            <li>At least one number</li>
+                            <li>At least one special character (@$!%*?&)</li>
+                          </ul>
+                        )}
                       </div>
 
+                      {/* Confirm Password (Signup only) */}
                       {!isLogin && (
-                        <div className="mb-3">
+                        <div className="mb-3 position-relative">
                           <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
-                          <input
-                            type="password"
-                            className={`form-control ${errors.confirmPassword ? "is-invalid" : ""}`}
-                            id="confirmPassword"
-                            name="confirmPassword"
-                            value={formData.confirmPassword}
-                            onChange={handleInputChange}
-                            placeholder="Confirm your password"
-                          />
-                          {errors.confirmPassword && <div className="invalid-feedback">{errors.confirmPassword}</div>}
+                          <div className="input-group">
+                            <input
+                              type={showConfirmPassword ? "text" : "password"}
+                              className={`form-control ${errors.confirmPassword ? "is-invalid" : ""}`}
+                              id="confirmPassword"
+                              name="confirmPassword"
+                              value={formData.confirmPassword}
+                              onChange={handleInputChange}
+                              placeholder="Confirm your password"
+                            />
+                            <button
+                              type="button"
+                              className="btn btn-outline-secondary"
+                              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                            >
+                              {showConfirmPassword ? "🙈" : "👁️"}
+                            </button>
+                          </div>
+                          {errors.confirmPassword && <div className="invalid-feedback d-block">{errors.confirmPassword}</div>}
                         </div>
                       )}
 
+                      {/* Submit Button */}
                       <button type="submit" className="btn btn-primary w-100 btn-lg btn-animated mb-3">
                         {isLogin ? "🔓 Login" : "🚀 Create Account"}
                       </button>
 
+                      {/* Forgot Password / Terms */}
                       <div className="text-center">
                         {isLogin ? (
                           <p className="mb-0">
@@ -246,7 +290,7 @@ const AuthPage = ({ darkMode, setIsAuthenticated, onLogin }) => {
                           </p>
                         ) : (
                           <p className="mb-0 small text-muted">
-                            By signing up, you agree to our {" "}
+                            By signing up, you agree to our{" "}
                             <button
                               type="button"
                               className="btn btn-link text-decoration-none p-0 small"
@@ -261,6 +305,7 @@ const AuthPage = ({ darkMode, setIsAuthenticated, onLogin }) => {
 
                   </div>
                 </div>
+
 
               </div>
             </div>

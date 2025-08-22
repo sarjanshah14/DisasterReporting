@@ -12,9 +12,9 @@ import "bootstrap/dist/css/bootstrap.min.css"
 
 const Dashboard = ({ darkMode }) => {
   const [stats, setStats] = useState({
-    totalDisasters: 247,
-    verifiedShelters: 1834,
-    registeredVolunteers: 5692,
+    totalDisasters: 30,
+    verifiedShelters: 100,
+    registeredVolunteers: 20,
     activeReports: 23,
   })
 

@@ -81,7 +81,7 @@ const LandingPage = ({ isAuthenticated }) => {
               </p>
               <div className="d-flex flex-wrap justify-content-center gap-3">
                 <Link
-                  to={isAuthenticated ? "/report" : "/auth"}
+                  to={isAuthenticated ? "/dashboard" : "/auth"}
                   className="btn btn-light btn-lg px-4 py-3"
                 >
                   Get Started
