@@ -191,6 +191,7 @@ const ReportPage = ({ darkMode }) => {
                       onChange={handleInputChange}
                       placeholder="e.g., Near City Hospital, Ahmedabad"
                     />
+                    <button value='Fetch location'>Fetch location</button>
                     {errors.address && <div className="invalid-feedback">{errors.address}</div>}
                   </div>
 
