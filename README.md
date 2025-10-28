@@ -261,32 +261,6 @@ npm test
 2. Deploy the `build` folder to your hosting service
 3. Configure API endpoints for production
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🆘 Support
-
-For support and questions:
-- Create an issue in the repository
-- Contact the development team
-- Check the documentation
-
-## 🙏 Acknowledgments
-
-- React and Django communities
-- Leaflet for mapping functionality
-- Bootstrap for UI components
-- Scikit-learn for machine learning capabilities
-
 ---
 
 **Note**: This application is designed for disaster response scenarios. Ensure proper testing and validation before using in critical emergency situations.
